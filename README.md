@@ -125,28 +125,32 @@ Para o envio de lembretes automáticos cerca de 24 horas antes do atendimento:
 ## 📁 Estrutura do Projeto
 
 ```text
-agenda/
-├── .gitignore
-├── vercel.json                 # Configuração de hospedagem na Vercel
-├── schema.sql                  # Estrutura completa do banco de dados e políticas RLS
+agenda-white-label/
 │
-├── public/                     # Aplicação Web Frontend
-│   ├── index.html              # Interface de agendamento do cliente final
-│   ├── equipe.html             # Painel administrativo da equipe
-│   ├── style.css               # Estilos com design system em CSS Variables
-│   ├── config.js               # Chaves públicas de conexão ao Supabase
-│   ├── api.js                  # Cliente de requisições HTTP (Fetch wrapper)
-│   ├── app.js                  # Lógica de negócio do fluxo de agendamento
-│   ├── equipe.js               # Lógica do painel de controle e autenticação
-│   └── fonts/                  # Tipografia local otimizada (DM Sans woff2)
+├── agenda/
+│   ├── .gitignore
+│   ├── vercel.json                 # Configuração de hospedagem na Vercel
+│   ├── schema.sql                  # Estrutura completa do banco de dados e políticas RLS
+│   │
+│   ├── public/                     # Aplicação Web Frontend
+│   │   ├── index.html              # Interface de agendamento do cliente final
+│   │   ├── equipe.html             # Painel administrativo da equipe
+│   │   ├── style.css               # Estilos com design system em CSS Variables
+│   │   ├── config.js               # Chaves públicas de conexão ao Supabase
+│   │   ├── api.js                  # Cliente de requisições HTTP (Fetch wrapper)
+│   │   ├── app.js                  # Lógica de negócio do fluxo de agendamento
+│   │   ├── equipe.js               # Lógica do painel de controle e autenticação
+│   │   └── fonts/                  # Tipografia local otimizada (DM Sans woff2)
+│   │
+│   └── supabase/                   # Módulos de Backend & Automação
+│       ├── config.toml             # Configuração do projeto Supabase CLI
+│       ├── lembretes.sql           # Migração da fila e funções de lembrete
+│       ├── cron-lembretes.sql      # Configuração do agendador periódico pg_cron
+│       └── functions/
+│           └── lembretes/
+│               └── index.ts        # Edge Function de processamento e envio
 │
-└── supabase/                   # Módulos de Backend & Automação
-    ├── config.toml             # Configuração do projeto Supabase CLI
-    ├── lembretes.sql           # Migração da fila e funções de lembrete
-    ├── cron-lembretes.sql      # Configuração do agendador periódico pg_cron
-    └── functions/
-        └── lembretes/
-            └── index.ts        # Edge Function de processamento e envio
+└── README.md
 ```
 
 ---
@@ -178,10 +182,10 @@ Se você apenas deseja ver o frontend funcionando, basta servir a pasta `public/
 ### 3. Configuração Completa com Banco de Dados (Supabase)
 1. Crie um projeto no [Supabase](https://supabase.com).
 2. No painel do Supabase, acesse **SQL Editor**:
-   - Cole e execute o arquivo `schema.sql` (cria tabelas, índices GiST, RPCs e empresa inicial);
-   - Cole e execute o arquivo `supabase/lembretes.sql` (adiciona suporte a notificações e fila).
+   - Cole e execute o arquivo `agenda/schema.sql` (cria tabelas, índices GiST, RPCs e empresa inicial);
+   - Cole e execute o arquivo `agenda/supabase/lembretes.sql` (adiciona suporte a notificações e fila).
 3. Conecte o frontend:
-   - Abra `public/config.js` e preencha com a URL do seu projeto e a chave anônima (`anon public`):
+   - Abra `agenda/public/config.js` e preencha com a URL do seu projeto e a chave anônima (`anon public`):
    ```javascript
    window.configAgenda = {
      url: 'https://seu-projeto.supabase.co',
@@ -200,7 +204,7 @@ Faça o deploy da Edge Function com a CLI do Supabase:
 npx supabase login
 npx supabase functions deploy lembretes --project-ref SEU_PROJECT_REF --no-verify-jwt
 ```
-E configure o job executando o script `supabase/cron-lembretes.sql` no SQL Editor.
+E configure o job executando o script `agenda/supabase/cron-lembretes.sql` no SQL Editor.
 
 ---
 
@@ -211,13 +215,13 @@ O projeto já conta com o arquivo `vercel.json` configurado apontando a pasta `p
 ```bash
 npx vercel
 ```
-Ou simplesmente conecte seu repositório do GitHub à [Vercel](https://vercel.com).
+Ou simplesmente conecte seu repositório do GitHub à [Vercel](https://vercel.com) e selecione o diretório raiz `agenda`.
 
 ---
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **Sergio D. Gali**.
+Desenvolvido por **João V L.**.
 
 Projeto concebido para demonstrar proficiência em:
 - Arquitetura de Software Multi-Tenant
