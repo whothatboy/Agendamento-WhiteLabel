@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agendar atendimento</title>
+<link rel="stylesheet" href="style.css">
+<header><span id="brand">Agenda</span><span id="mode"></span></header>
+<main>
+    <aside><img id="logo" hidden alt="">
+        <p id="category"></p>
+        <h1>Agende seu horário</h1>
+        <p id="intro">Escolha o serviço e encontre um horário para o atendimento.</p>
+        <hr><small>Horário local da empresa</small>
+        <p id="zone"></p>
+    </aside>
+    <section>
+        <form id="form">
+            <h2>Escolha o serviço</h2>
+            <div id="services"></div>
+            <h2>Data e horário</h2><label>Dia do atendimento<input type="date" id="date" required></label>
+            <div id="slots" aria-live="polite"></div>
+            <h2>Seus dados</h2>
+            <div class="fields">
+                <label>Seu nome<input id="customer" autocomplete="name" minlength="2" maxlength="100" required></label>
+                <label>Telefone com DDD<input id="phone" type="tel" autocomplete="tel-national" maxlength="18"
+                        required></label>
+            </div>
+            <label id="petField" hidden>Nome do pet<input id="pet" maxlength="80"></label>
+            <fieldset id="reminders" hidden>
+                <legend>Lembrete do atendimento</legend>
+                <p>Escolha como quer receber um aviso cerca de 24 horas antes. Para reservas de última hora, o aviso
+                    pode chegar mais perto do atendimento.</p>
+                <label class="choice" id="emailOption" hidden><input type="checkbox" id="byEmail"> Quero receber por
+                    e-mail</label>
+                <label id="addressField" hidden>Seu e-mail<input id="address" type="email" autocomplete="email"
+                        maxlength="254" disabled></label>
+                <label class="choice" id="waOption" hidden><input type="checkbox" id="byWhats"> Quero receber no
+                    WhatsApp do telefone informado</label>
+            </fieldset><button id="submit" disabled>Confirmar agendamento</button>
+        </form>
+        <p id="status" role="status"></p>
+    </section>
+</main>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+
+</html>

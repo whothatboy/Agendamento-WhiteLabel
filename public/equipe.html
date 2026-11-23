@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agenda da equipe</title>
+<link rel="stylesheet" href="style.css">
+<header><strong>Área da equipe</strong></header>
+<main>
+    <aside>
+        <h1>Agenda da equipe</h1>
+        <p>Consulte os atendimentos e libere horários cancelados.</p>
+    </aside>
+    <section>
+        <form id="login"><label>E-mail<input id="email" type="email" required
+                    autocomplete="username"></label><label>Senha<input id="password" type="password" required
+                    autocomplete="current-password"></label><button>Entrar</button></form>
+        <div id="panel" hidden><button id="reload">Atualizar agenda</button> <button id="logout">Sair</button>
+            <h2>Próximos atendimentos</h2>
+            <div id="rows"></div>
+        </div>
+        <p id="message" role="status"></p>
+    </section>
+</main>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="equipe.js"></script>
+
+</html>
